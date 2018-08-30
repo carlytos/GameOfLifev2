@@ -9,10 +9,9 @@ let tablero = [
 function Neighbours(tablero, x, y) {
 
     let vecinos = [];
-    //console.log(tablero);
+
     //Caso 00
     if (x == 0 && y == 0) {
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
         vecinos.push(tablero[x + 1][y]);
         vecinos.push(tablero[x + 1][y + 1]);
@@ -20,7 +19,6 @@ function Neighbours(tablero, x, y) {
     //Caso 01
     if (x == 0 && y > 0 && y < tablero.length - 1) {
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
         vecinos.push(tablero[x + 1][y - 1]);
         vecinos.push(tablero[x + 1][y]);
@@ -29,7 +27,6 @@ function Neighbours(tablero, x, y) {
     //Case 02
     if (x == 0 && y == tablero.length - 1) {
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x + 1][y - 1]);
         vecinos.push(tablero[x + 1][y]);
     }
@@ -37,7 +34,6 @@ function Neighbours(tablero, x, y) {
     if (x > 0 && x < tablero.length - 1 && y == 0) {
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x - 1][y + 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
         vecinos.push(tablero[x + 1][y]);
         vecinos.push(tablero[x + 1][y + 1]);
@@ -48,7 +44,6 @@ function Neighbours(tablero, x, y) {
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x - 1][y + 1]);
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
         vecinos.push(tablero[x + 1][y - 1]);
         vecinos.push(tablero[x + 1][y]);
@@ -59,7 +54,6 @@ function Neighbours(tablero, x, y) {
         vecinos.push(tablero[x - 1][y - 1]);
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x + 1][y - 1]);
         vecinos.push(tablero[x + 1][y]);
     }
@@ -67,7 +61,6 @@ function Neighbours(tablero, x, y) {
     if (x == tablero.length - 1 && y == 0) {
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x - 1][y + 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
     }
     //Caso 21
@@ -76,7 +69,6 @@ function Neighbours(tablero, x, y) {
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x - 1][y + 1]);
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
         vecinos.push(tablero[x][y + 1]);
     }
     //Caso 22
@@ -84,7 +76,6 @@ function Neighbours(tablero, x, y) {
         vecinos.push(tablero[x - 1][y - 1]);
         vecinos.push(tablero[x - 1][y]);
         vecinos.push(tablero[x][y - 1]);
-        vecinos.push(tablero[x][y]);
     }
 
     return vecinos;
@@ -100,16 +91,14 @@ function StateNextGeneration(tablero, a, b) {
             liveNeighbours++;
         }
     });
-    let RealliveNeighbours = liveNeighbours;
 
     if (tablero[a][b] == true) {
-        RealliveNeighbours--;
-        if (RealliveNeighbours == 2 || RealliveNeighbours == 3) {
+        if (liveNeighbours == 2 || liveNeighbours == 3) {
             state = true;
         }
     }
 
-    if (RealliveNeighbours == 3) {
+    if (liveNeighbours == 3) {
         state = true;
     }
     return state;
